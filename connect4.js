@@ -34,15 +34,17 @@ function makeBoard() {
 
 function makeHtmlBoard() {
   // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
-
+  const htmlBoard = document.getElementById("board");
   // TODO: add comment for this code
-  var top = document.createElement("tr");
+  // setting up top row where the user clicks/chooses column
+  const top = document.createElement("tr");
   top.setAttribute("id", "column-top");
   top.addEventListener("click", handleClick);
 
   // TODO: add comment for this code
-  for (var x = 0; x < WIDTH; x++) {
-    var headCell = document.createElement("td");
+  // assign each column header/top box an id
+  for (let x = 0; x < WIDTH; x++) {
+    const headCell = document.createElement("td");
     headCell.setAttribute("id", x);
     top.append(headCell);
   }
@@ -53,18 +55,18 @@ function makeHtmlBoard() {
   // uses WIDTH to create table cells for each row
   for (var y = 0; y < HEIGHT; y++) {
     // TODO: Create a table row element and assign to a "row" variable
-
+    const row = document.createElement("tr");
     for (var x = 0; x < WIDTH; x++) {
       // TODO: Create a table cell element and assign to a "cell" variable
-
+      const cell = document.createElement("td");
       // TODO: add an id, y-x, to the above table cell element
       // you'll use this later, so make sure you use y-x
-
+      cell.setAttribute("id", `${y}-${x}`);
       // TODO: append the table cell to the table row
-
+      row.append(cell);
     }
     // TODO: append the row to the html board
-
+    htmlBoard.append(row);
   }
 }
 
@@ -118,17 +120,14 @@ function handleClick(evt) {
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
 
 function checkForWin() {
-
   /** _win:
    * takes input array of 4 cell coordinates [ [y, x], [y, x], [y, x], [y, x] ]
    * returns true if all are legal coordinates for a cell & all cells match
    * currPlayer
    */
   function _win(cells) {
-
     // TODO: Check four cells to see if they're all legal & all color of current
     // player
-
   }
 
   // using HEIGHT and WIDTH, generate "check list" of coordinates
@@ -141,7 +140,12 @@ function checkForWin() {
       // each should be an array of 4 cell coordinates:
       // [ [y, x], [y, x], [y, x], [y, x] ]
 
-      let horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];
+      let horiz = [
+        [y, x],
+        [y, x + 1],
+        [y, x + 2],
+        [y, x + 3],
+      ];
       let vert;
       let diagDL;
       let diagDR;
