@@ -15,6 +15,10 @@
   height: 80%;
 }
 
+#player-1 {
+  background-color: blue;
+}
+
 /* TODO: make pieces red/blue,  depending on player 1/2 piece */
 
 /* column-top is table row of clickable areas for each column */

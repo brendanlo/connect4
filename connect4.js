@@ -26,7 +26,6 @@ function makeBoard() {
     }
     board.push(column);
   }
-  console.log(`board = ${board}`);
   return board;
 }
 
@@ -93,8 +92,7 @@ function findSpotForCol(x) {
   // condition for if there are no pieces in the column
   if (lastFilled === undefined) {
     lastEmpty = HEIGHT - 1;
-  }
-  else {
+  } else {
     lastEmpty = lastFilled - 1;
   }
 
@@ -105,6 +103,12 @@ function findSpotForCol(x) {
 
 function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
+  console.log(y, x);
+  const piece = document.createElement("div");
+  piece.setAttribute("id", `player-${currPlayer}`);
+  const cell = document.getElementById(`${y}-${x}`);
+  cell.append(piece);
+  console.log("placeInTable ran");
 }
 
 /** endGame: announce game end */
