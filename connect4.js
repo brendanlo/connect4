@@ -74,7 +74,31 @@ function makeHtmlBoard() {
 
 function findSpotForCol(x) {
   // TODO: write the real version of this, rather than always returning 5
-  return 5;
+  let column = board[x];
+  let lastFilled;
+  let lastEmpty;
+
+  // FIXME break the function down into helper functions
+  // condition for if column is filled
+  if (column[0] != null) {
+    return null;
+  }
+
+  for (let i = 0; i < HEIGHT; i++) {
+    if (column[i] != null) {
+      lastFilled = i;
+    }
+  }
+
+  // condition for if there are no pieces in the column
+  if (lastFilled === undefined) {
+    lastEmpty = HEIGHT - 1;
+  }
+  else {
+    lastEmpty = lastFilled - 1;
+  }
+
+  return lastEmpty;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
