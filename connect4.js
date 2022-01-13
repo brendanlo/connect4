@@ -21,7 +21,7 @@ function makeBoard() {
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
   for (let y = 0; y < HEIGHT; y++) {
     let row = [];
-    for (let yx = 0; x < WIDTH; x++) {
+    for (let x = 0; x < WIDTH; x++) {
       row.push(null);
     }
     board.push(row);
@@ -73,19 +73,19 @@ function makeHtmlBoard() {
 
 function findSpotForCol(x) {
   // TODO: write the real version of this, rather than always returning 5
-  let column = board[x];
+
   let lastFilled;
   let lastEmpty;
 
-  // FIXME break the function down into helper functions
   // condition for if column is filled
-  if (column[0] != null) {
+  if (board[0][x] != null) {
     return null;
   }
 
-  for (let i = 0; i < HEIGHT; i++) {
-    if (column[i] != null) {
-      lastFilled = i;
+  for (let y = 0; y < HEIGHT; y++) {
+    let currentRowArr = board[y];
+    if (currentRowArr[x] !== null) {
+      lastFilled = y;
     }
   }
 
@@ -95,6 +95,7 @@ function findSpotForCol(x) {
   } else {
     lastEmpty = lastFilled - 1;
   }
+  console.log(`last filled: ${lastFilled}, last empty: ${lastEmpty}`);
 
   return lastEmpty;
 }
@@ -103,12 +104,10 @@ function findSpotForCol(x) {
 
 function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
-  console.log(y, x);
   const piece = document.createElement("div");
-  piece.setAttribute("id", `player-${currPlayer}`);
+  piece.setAttribute("class", `p${currPlayer} piece`);
   const cell = document.getElementById(`${y}-${x}`);
   cell.append(piece);
-  console.log("placeInTable ran");
 }
 
 /** endGame: announce game end */
@@ -125,12 +124,14 @@ function handleClick(evt) {
 
   // get next spot in column (if none, ignore click)
   var y = findSpotForCol(x);
+
   if (y === null) {
     return;
   }
 
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
+  board[y][x] = `p${currPlayer}`;
   placeInTable(y, x);
 
   // check for win
@@ -140,9 +141,17 @@ function handleClick(evt) {
 
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
+  let boardIsFilled = board.every(function (row) {
+    return row.every(function (ele) {
+      return ele !== null;
+    });
+  });
+
+  if (boardIsFilled) endGame;
 
   // switch players
   // TODO: switch currPlayer 1 <-> 2
+  currPlayer = currPlayer === 1 ? 2 : 1;
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
