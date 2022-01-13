@@ -19,12 +19,12 @@ let board = []; // array of rows, each row is array of cells  (board[y][x])
 
 function makeBoard() {
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
-  for (let x = 0; x < WIDTH; x++) {
-    let column = [];
-    for (let y = 0; y < HEIGHT; y++) {
-      column.push(null);
+  for (let y = 0; y < HEIGHT; y++) {
+    let row = [];
+    for (let yx = 0; x < WIDTH; x++) {
+      row.push(null);
     }
-    board.push(column);
+    board.push(row);
   }
   return board;
 }
@@ -52,10 +52,10 @@ function makeHtmlBoard() {
   // dynamically creates the main part of html board
   // uses HEIGHT to create table rows
   // uses WIDTH to create table cells for each row
-  for (var y = 0; y < HEIGHT; y++) {
+  for (let y = 0; y < HEIGHT; y++) {
     // TODO: Create a table row element and assign to a "row" variable
     const row = document.createElement("tr");
-    for (var x = 0; x < WIDTH; x++) {
+    for (let x = 0; x < WIDTH; x++) {
       // TODO: Create a table cell element and assign to a "cell" variable
       const cell = document.createElement("td");
       // TODO: add an id, y-x, to the above table cell element
